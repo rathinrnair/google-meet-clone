@@ -1,14 +1,31 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from 'react-router-dom'
 import './index.css'
 import App from './App'
 import 'material-icons/iconfont/material-icons.css'
 import reportWebVitals from './reportWebVitals'
+import HomeScreen from './screens/HomeScreen'
+import MeetingsScreen from './screens/MeetingsScreen'
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path='/' element={<App />}>
+      <Route index={true} path='/' element={<HomeScreen />} />
+      <Route path='/meetings' element={<MeetingsScreen />} />
+    </Route>
+  )
+)
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 )
 

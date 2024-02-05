@@ -1,80 +1,22 @@
-import React, { useState } from 'react'
-import { navLinks } from '../constants'
-import googleworkspacelogo from '../assets/images/google_workspace_logo.png'
+import { useState } from 'react'
+import { navLinksSec } from '../constants'
 import logo from '../assets/images/logo.svg'
 import sideImage from '../assets/images/side-image.webp'
+import NavBar from '../components/NavBar'
+import SelectButton from '../components/SelectButton'
 
 const HomeScreen = () => {
-  const [isOpen, setIsOpen] = useState(false)
   const [isJoinOpen, setIsJoinOpen] = useState(false)
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen)
-  }
-
   const toggleJoin = () => {
-    setIsJoinOpen(!isOpen)
+    setIsJoinOpen(!isJoinOpen)
   }
 
   return (
     <>
       {/* Header Section */}
-      <section className='w-container'>
-        <header className=' flex  shadow-md items-center p-3'>
-          <img
-            src={googleworkspacelogo}
-            alt='googleworkspacelogo'
-            width={187}
-            height={24}
-          />
-          <div className=' flex gap-10 pl-10'>
-            {navLinks.map((link, index) => (
-              <a
-                key={index}
-                className=' text-g-gray font-opensans text-sm font-normal'
-                href={link.href}
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-          <div className='flex ml-auto gap-4 '>
-            <button
-              onClick={toggleDropdown}
-              className='border border-solid py-2.5 px-10 rounded-[4px] border-gray-300 text-g-blue font-opensans text-sm font-medium relative flex items-center'
-            >
-              <div className='flex items-center pr-7'>
-                Try Meet for Work
-                <div className='border-l border-solid border-gray-300 rounded-r-[4px] absolute right-2 top-0 bottom-0 flex items-center justify-center pl-2'>
-                  {!isOpen ? (
-                    <i className='material-icons'>arrow_drop_down</i>
-                  ) : (
-                    <i className='material-icons'>arrow_drop_up</i>
-                  )}
-                </div>
-              </div>
-            </button>
-            {isOpen && (
-              <div className='dropdown-menu absolute bg-white rounded-[4px] shadow-lg border border-gray-200 py-1 mt-11 w-[230px]'>
-                <a
-                  href='/'
-                  className='block px-4 py-2 font-opensans text-sm text-g-blue'
-                >
-                  For small business
-                </a>
-                <a
-                  href='/'
-                  className='block px-4 py-2 font-opensans text-sm text-g-blue'
-                >
-                  For enterprise
-                </a>
-              </div>
-            )}
-            <button className=' border-2 border-solid py-2.5 px-6 rounded-[4px] bg-g-blue border-g-blue text-white font-opensans text-sm font-medium '>
-              Go to app
-            </button>
-          </div>
-        </header>
+      <section className='w-container relative'>
+        <NavBar />
       </section>
       {/* Main Content Section */}
       <section className='w-container mt-16 flex justify-center'>
@@ -92,37 +34,7 @@ const HomeScreen = () => {
               <button className=' border-2 border-solid py-2.5 px-6 rounded-[4px] bg-g-blue border-g-blue text-white font-opensans text-sm font-medium '>
                 Sign in
               </button>
-              <button
-                onClick={toggleDropdown}
-                className='border border-solid py-2.5 px-10 rounded-[4px] border-gray-300 text-g-blue font-opensans text-sm font-medium relative flex items-center'
-              >
-                <div className='flex items-center pr-7'>
-                  Try Meet for Work
-                  <div className='border-l border-solid border-gray-300 rounded-r-[4px] absolute right-2 top-0 bottom-0 flex items-center justify-center pl-2'>
-                    {!isOpen ? (
-                      <i className='material-icons'>arrow_drop_down</i>
-                    ) : (
-                      <i className='material-icons'>arrow_drop_up</i>
-                    )}
-                  </div>
-                </div>
-              </button>
-              {isOpen && (
-                <div className='dropdown-menu absolute bg-white rounded-[4px] shadow-lg border border-gray-200 py-1 mt-11 w-[230px]'>
-                  <a
-                    href='/'
-                    className='block px-4 py-2 font-opensans text-sm text-g-blue'
-                  >
-                    For small business
-                  </a>
-                  <a
-                    href='/'
-                    className='block px-4 py-2 font-opensans text-sm text-g-blue'
-                  >
-                    For enterprise
-                  </a>
-                </div>
-              )}
+              <SelectButton />
             </div>
             <div className='flex mt-10 gap-4 items-center'>
               <p className=' font-opensans'>Join a meeting now</p>
@@ -140,7 +52,7 @@ const HomeScreen = () => {
               ) : (
                 <button
                   onClick={toggleJoin}
-                  className=' text-g-blue font-opensans font-medium border-b-2 border-g-blue'
+                  className=' text-g-blue font-opensans font-medium border-b-2 border-g-blue my-4'
                 >
                   Enter Code
                 </button>
@@ -152,6 +64,23 @@ const HomeScreen = () => {
           </div>
         </div>
       </section>
+      <section className='flex justify-center'>
+        <div className='max-w-[60%]  border p-4 rounded-full shadow-sm gap-10 flex px-10 mt-10'>
+          {navLinksSec.map((link, index) => (
+            <a
+              key={index}
+              className=' text-g-gray font-opensans text-sm font-normal'
+              href={link.href}
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </section>
+      {/* Floating Button */}
+      {/* <div className='fixed bottom-8 right-8 bg-blue-500 rounded-full w-12 h-12 flex items-center justify-center cursor-pointer'>
+        <i className='material-icons'>message_outlined</i>
+      </div> */}
     </>
   )
 }
