@@ -23,7 +23,7 @@ const Slider = ({ slides }) => {
           className='cursor-pointer hover:shadow-md rounded-full flex items-center  hover:bg-gray-100 w-10 h-10'
         >
           <i
-            className='material-icons text-gray-500 p-1.5'
+            className='material-icons text-gray-500 p-1.5 select-none'
             style={{ fontSize: '24px' }}
           >
             keyboard_arrow_left_outlined
@@ -39,6 +39,7 @@ const Slider = ({ slides }) => {
                 alt={slide.title}
                 width={247}
                 height={247}
+                className='transition-opacity duration-500 ease-in-out'
               />
             )
         )}
@@ -47,7 +48,7 @@ const Slider = ({ slides }) => {
           className='cursor-pointer hover:shadow-md rounded-full flex items-center hover:bg-gray-100 w-10 h-10'
         >
           <i
-            className='material-icons text-gray-500 p-2'
+            className='material-icons text-gray-500 p-2 select-none'
             style={{ fontSize: '24px' }}
           >
             keyboard_arrow_right_outlined
@@ -58,61 +59,27 @@ const Slider = ({ slides }) => {
         {slides.map(
           (slide, index) =>
             index === currentIndex && (
-              <>
+              <div key={index}>
                 <h3 className=' font-opensans font-normal text-2xl text-gray-600'>
                   {slide.title}
                 </h3>
                 <p className=' max-w-md'>{slide.desc}</p>
-              </>
+              </div>
             )
         )}
       </div>
       <div>
-        {currentIndex === 0 ? (
+        {slides.map((slide, index) => (
           <i
-            className='material-icons text-g-blue p-2'
+            key={index}
+            className={`material-icons ${
+              index === currentIndex ? 'text-g-blue' : 'text-gray-500'
+            } p-2`}
             style={{ fontSize: '8px' }}
           >
             circle
           </i>
-        ) : (
-          <i
-            className='material-icons text-gray-500 p-2'
-            style={{ fontSize: '8px' }}
-          >
-            circle
-          </i>
-        )}
-        {currentIndex === 1 ? (
-          <i
-            className='material-icons text-g-blue p-2'
-            style={{ fontSize: '8px' }}
-          >
-            circle
-          </i>
-        ) : (
-          <i
-            className='material-icons text-gray-500 p-2'
-            style={{ fontSize: '8px' }}
-          >
-            circle
-          </i>
-        )}
-        {currentIndex === 2 ? (
-          <i
-            className='material-icons text-g-blue p-2'
-            style={{ fontSize: '8px' }}
-          >
-            circle
-          </i>
-        ) : (
-          <i
-            className='material-icons text-gray-500 p-2'
-            style={{ fontSize: '8px' }}
-          >
-            circle
-          </i>
-        )}
+        ))}
       </div>
     </div>
   )
