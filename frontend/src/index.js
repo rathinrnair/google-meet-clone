@@ -10,14 +10,14 @@ import './index.css'
 import App from './App'
 import 'material-icons/iconfont/material-icons.css'
 import reportWebVitals from './reportWebVitals'
-import HomeScreen from './screens/HomeScreen'
-import MeetingsScreen from './screens/MeetingsScreen'
+import { HomeScreen, NewMeetingScreen, MeetingScreen } from './screens'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />}>
       <Route index={true} path='/' element={<HomeScreen />} />
-      <Route path='/meetings' element={<MeetingsScreen />} />
+      <Route path='/newmeeting' element={<NewMeetingScreen />} />
+      <Route path='/meeting/:meetingid' element={<MeetingScreen />} />
     </Route>
   )
 )

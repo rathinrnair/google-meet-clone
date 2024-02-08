@@ -1,15 +1,32 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import NavBar from '../components/NavBar'
 import Slider from '../components/Slider'
 import { slides } from '../constants'
 
-const MeetingsScreen = () => {
+const NewMeetingScreen = () => {
+  const navigate = useNavigate()
   const [isFocused, setIsFocused] = useState(false)
   const [meetingCode, setMeetingCode] = useState('')
 
-  const logMeetingCode = (e) => {
-    setMeetingCode(e.target.value)
-    console.log(meetingCode)
+  const handleClickJoin = () => {
+    if (meetingCode.length !== 8) {
+      window.alert('Invalid Meeting Id!')
+    } else {
+      navigate(`/meeting/${meetingCode}`)
+    }
+  }
+
+  const handleClickNewMeeting = () => {
+    const uniqueMeetingCode = generateRandomNumber()
+    setMeetingCode(uniqueMeetingCode)
+    navigate(`/meeting/${uniqueMeetingCode}`)
+  }
+
+  const generateRandomNumber = () => {
+    const min = 10000000 // Minimum 8-digit number
+    const max = 99999999 // Maximum 8-digit number
+    return Math.floor(Math.random() * (max - min + 1)) + min
   }
 
   return (
@@ -18,7 +35,7 @@ const MeetingsScreen = () => {
         <NavBar loggedIn={true} />
       </section>
       {/* Main Content Section */}
-      <section className='w-container mt-16 flex justify-center'>
+      <section className='w-container mt-28 flex justify-center'>
         <div className='flex max-w-[90%] gap-56 items-center'>
           <div
             className='flex flex-col gap-5 items-start
@@ -32,7 +49,10 @@ const MeetingsScreen = () => {
               meetings, Google Meet, to make it free and available for all.
             </p>
             <div className='flex gap-4'>
-              <button className='border-2 border-solid py-2.5 px-6 rounded-[4px] bg-g-blue border-g-blue text-white font-opensans text-md font-normal flex items-center justify-center'>
+              <button
+                onClick={handleClickNewMeeting}
+                className='border-2 border-solid py-2.5 px-6 rounded-[4px] bg-g-blue border-g-blue text-white font-opensans text-md font-normal flex items-center justify-center'
+              >
                 <i
                   className='material-icons text-white'
                   style={{ width: '32px' }}
@@ -60,13 +80,14 @@ const MeetingsScreen = () => {
                 <input
                   type='text'
                   onChange={(e) => {
-                    logMeetingCode(e)
+                    setMeetingCode(e.target.value)
                   }}
                   placeholder='Enter a code or link'
                   className='text-md font-opensans border-none p-2 focus:outline-none'
                 />
               </div>
               <button
+                onClick={handleClickJoin}
                 className={`${
                   !meetingCode
                     ? ' text-gray-400'
@@ -92,4 +113,4 @@ const MeetingsScreen = () => {
   )
 }
 
-export default MeetingsScreen
+export default NewMeetingScreen
